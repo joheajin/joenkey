@@ -157,6 +157,9 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: -0.3px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
+.hero__badge-sub::before {
+  content: " · ";
+}
 
 .hero__subtext {
   font-size: clamp(1.05rem, 2.5vw, 1.25rem);
@@ -555,12 +558,29 @@ a { color: inherit; text-decoration: none; }
 .call-fab {
   display: none;
   position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 200;
-  background: var(--dark); color: var(--yellow);
-  text-align: center; font-weight: 800; font-size: 1.15rem;
-  padding: 16px; border-radius: 999px; box-shadow: 0 6px 24px rgba(0,0,0,.35);
+  background: var(--dark); color: #fff;
+  text-align: center;
+  padding: 10px 20px; border-radius: 999px; box-shadow: 0 6px 24px rgba(0,0,0,.35);
   transition: transform .15s ease;
+  text-decoration: none;
 }
 .call-fab:active { transform: scale(0.98); }
+.call-fab__title {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+.call-fab__num {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--yellow);
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
 
 /* ===== 반응형 미디어 쿼리 ===== */
 @media (max-width: 960px) {
@@ -570,9 +590,35 @@ a { color: inherit; text-decoration: none; }
   .hero__overlay-content { margin-top: -60px; padding-bottom: 40px; }
 }
 
+/* ========================================================
+   [모바일 전용 스타일 (스마트폰 & 태블릿 세로 모드)]
+   데스크탑 PC 화면에는 전혀 영향을 주지 않고,
+   스마트폰(가로 768px 이하)에서만 적용되는 줄간격, 여백, 글자크기
+   ======================================================== */
 @media (max-width: 768px) {
+  /* 1. 모바일 줄바꿈 전용 태그 제어 */
   .mobile-only { display: block; }
   .pc-only { display: none; }
+
+  /* 2. 모바일 기본 행간 및 섹션 패딩 조절 */
+  body {
+    line-height: 1.65; /* 모바일 기본 줄간격 */
+  }
+  .section {
+    padding: 50px 0; /* PC의 80px에서 모바일 50px로 컴팩트하게 조절 */
+  }
+  .section__title {
+    font-size: 1.65rem;
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+  .section__sub {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 6px 0 30px;
+  }
+
+  /* 3. 모바일 네비게이션 메뉴 */
   .nav-toggle { display: block; }
   .nav {
     display: none;
@@ -585,17 +631,193 @@ a { color: inherit; text-decoration: none; }
   .nav a { width: 100%; padding: 14px 20px; border-top: 1px solid #f2f2f2; }
   .nav__call { border-radius: 0; }
 
-  .hero__overlay-content { margin-top: -40px; padding: 20px 0 35px; }
-  .hero__actions { width: 100%; flex-direction: column; }
-  .hero__actions .btn { width: 100%; }
+  /* 4. 모바일 히어로 영역 (줄간격 및 간격) */
+  .hero__overlay-content {
+    margin-top: -35px;
+    padding: 16px 0 30px;
+  }
+  .hero__content-inner {
+    gap: 12px; /* 요소 간격 */
+  }
+  .hero__badge {
+    font-size: 0.88rem;
+    padding: 8px 18px;
+    letter-spacing: -0.2px;
+    line-height: 1.4;
+    text-align: center;
+    border-radius: 18px;
+  }
+  .hero__badge-sub::before {
+    content: "";
+  }
+  .hero__subtext {
+    font-size: 1.02rem;
+    line-height: 1.6; /* 히어로 본문 줄간격 */
+    padding: 0 8px;
+  }
+  .hero__subtext strong {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+  .hero__actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    margin: 8px 0 4px;
+  }
+  .hero__actions .btn {
+    width: 100%;
+    padding: 13px 20px;
+  }
+  .btn__call-text strong {
+    font-size: 1.15rem;
+  }
 
-  .section { padding: 60px 0; }
-  .gallery-grid { grid-template-columns: 1fr; }
-  .call-fab { display: block; }
+  /* 5. 모바일 장인 섹션 (슬로건 & 문구 줄간격/여백) */
+  .section--master {
+    padding: 60px 0 50px;
+  }
+  .master-intro {
+    margin-bottom: 35px;
+    padding: 0 4px;
+  }
+  .master-slogan {
+    font-size: 1.7rem;
+    line-height: 1.4; /* 장인 슬로건 줄간격 */
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+  }
+  .master-lead {
+    font-size: 1.02rem;
+    line-height: 1.7; /* "책임져 온 조은열쇠도장의 약속입니다" 줄간격 */
+    color: #444;
+  }
+  .master-visual__main img {
+    height: 240px;
+  }
+  .master-visual__sub {
+    display: none !important; /* 모바일에서 업로드된 사진 2장 삭제 */
+  }
+  .master-content h3 {
+    font-size: 1.4rem;
+    line-height: 1.45; /* 소제목 줄간격 */
+    margin-bottom: 20px;
+  }
+  .master-points {
+    gap: 16px; /* 항목 간격 */
+    margin-bottom: 24px;
+  }
+  .master-point {
+    gap: 12px;
+  }
+  .point-body h4 {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 5px;
+  }
+  .point-body p {
+    font-size: 0.92rem;
+    line-height: 1.65; /* 설명문 줄간격 */
+    color: #555;
+  }
+  .master-stats {
+    padding: 16px 12px;
+  }
+  .master-stats b {
+    font-size: 1.8rem;
+  }
+  .master-owner {
+    justify-content: center !important; /* 조은열쇠도장 대표 이번성 가운데 정렬 */
+    text-align: center;
+    margin-top: 24px;
+  }
 
-  .master-visual__main img { height: 260px; }
+  /* 6. 모바일 서비스 카드 */
+  .cards {
+    gap: 14px;
+  }
+  .card {
+    padding: 22px 18px; /* 카드 안쪽 여백 */
+  }
+  .card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 5px;
+  }
+  .card p {
+    font-size: 0.92rem;
+    line-height: 1.55; /* 카드 설명 줄간격 */
+  }
+
+  /* 7. 모바일 갤러리 */
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .gallery-item figcaption {
+    padding: 20px 14px 10px;
+  }
+  .gallery-item figcaption strong {
+    font-size: 0.95rem;
+  }
+  .gallery-item figcaption span {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  /* 8. 모바일 고객 후기 */
+  .review {
+    padding: 22px 18px;
+  }
+  .review p {
+    font-size: 0.95rem;
+    line-height: 1.65; /* 후기 줄간격 */
+  }
+
+  /* 9. 모바일 오시는 길 */
+  .info {
+    gap: 10px 8px;
+    margin: 18px 0 22px;
+    font-size: 0.93rem;
+  }
+  .info dt {
+    font-size: 0.93rem;
+  }
+  .info dd {
+    line-height: 1.55;
+  }
+  .map-links .btn {
+    width: 100%;
+    padding: 12px 18px;
+  }
+  .location__map iframe {
+    min-height: 320px;
+  }
+
+  /* 10. 모바일 고정 전화 버튼 (2줄 레이아웃) */
+  .call-fab {
+    display: block;
+    padding: 11px 16px;
+  }
+  .call-fab__title {
+    font-size: 0.85rem;
+  }
+  .call-fab__num {
+    font-size: 1.25rem;
+  }
+
+  /* 11. 모바일 푸터 */
+  .footer {
+    padding: 50px 0 120px; /* 하단 2줄 전화버튼 가림 방지 */
+  }
+  .footer__slogan {
+    line-height: 1.6;
+    padding: 0 12px;
+    margin-bottom: 16px !important;
+  }
 }
 
+/* 스마트폰 소형 화면 (폭 560px 이하) 추가 미세조절 */
 @media (max-width: 560px) {
   .cards, .reviews { grid-template-columns: 1fr; }
   .master-stats { flex-direction: column; gap: 12px; }
